@@ -57,48 +57,20 @@ use Rack::Auth::Basic do |username, password|
 	username == 'admin' && password == 'secret'
 end
 
-# new
-get '/' do
-	@urls = Url.all()
-	erb :all
-end
-
-get '/test' do
-	haml '%div.title Hello World'
-end
-
-get %r{/hello1/([\w]+)} do |c|
-	"Hello, #{c}!"
-end
-
-get %r{/hello2/([\w]+)} do
-	"Hello, #{params[:captures].first}!"
-end
-
-get '/hello3/:name' do |n|
-	"Hello #{n}!"
-end
-
-get '/hello4/:name' do
-	# matches "GET /foo" and "GET /bar"
-	# params[:name] is 'foo' or 'bar'
-	"Hello #{params[:name]}!"
-end
-
-error do
-	'Sorry there was a nasty error - ' + env['sinatra.error'].name
-end
-
 
 ############################ 
 ## Urls
 ############################ 
 
+get '/' do
+	@urls = Url.all()
+	erb :all
+end
+
 get '/new/' do
 	erb(:new)
 end
 
-# show
 get '/:id' do
 	@url = Url.get(params[:id])
 	if @url
@@ -108,8 +80,6 @@ get '/:id' do
 	end
 end
 
-
-# create
 post '/new/' do
 	url = params[:new_url]
 	desc = params[:new_desc]
@@ -154,7 +124,6 @@ post '/update/:id' do
 	end
 end
 
-# Show all
 get '/all/' do
 	@urls = Url.all()
 	erb :all
@@ -182,16 +151,8 @@ end
 
 get '/find/:searchTerm*?' do
 	if params[:searchTerm]
-	
-#http://merb.4ninjas.org/
-#	Posts.all :title.like => '%welcome%', :created_at.lt => Time.now
-#http://book.merbist.com/en/interacting-with-the-database/queries#read
-
-
 		@searchTerm = "#{params[:searchTerm]}".chomp	
-#		@Url = Url.all(:url.like => '%' + @searchTerm + '%')
 		@Urls = Url.all(:conditions => ["url LIKE ? OR description LIKE ?", '%' + @searchTerm + '%', '%' + @searchTerm + '%'])
-#		@Url = Url.all(:conditions => ["url LIKE ? OR url LIKE ?", '%#{@searchTerm}%', '%#{@searchTerm}%'])
 	else
 		redirect "/"
 	end		
@@ -201,7 +162,6 @@ get '/find/:searchTerm*?' do
 	else
 		redirect "/"
 	end
-
 end
 
 ############################ 
@@ -263,7 +223,6 @@ get '/cats/delete/:id' do
 		redirect '/wtf/'
 	end
 end
-
 
 # Show wtf
 get '/wtf/' do

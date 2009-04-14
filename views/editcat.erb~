@@ -1,0 +1,53 @@
+
+<b>Edit category:</b>
+<div class="entryContainer">
+
+	  <form action="/cats/update/<%= @cat.id %>" method="POST">
+
+	  	<table width="100%">
+	  		<tr>
+	  			<td align="right">
+	  				Category: 
+	  			</td>
+	  			<td>
+					<input id="cat_name" name="cat_name"  value="<%= @cat.name %>">
+	  			</td>
+	  			<td align="right">
+					<input 
+						type="submit"
+						class="goSave" 
+						href="#" 
+						value="Save"> 
+	  			</td>
+  			</tr>
+  			<tr>
+	  			<td colspan="3" align="right">
+					<input 
+						type="submit"
+						class="goDelete" 
+						href="#" 
+						onclick="if (confirmDeleteCat('<%= @cat.name %>') ){window.location.href='/cats/delete/<%= @cat.id %>';};return false;"
+						value="Delete"> 
+	  			</td>
+  			</tr>
+  			<tr>
+	  			<td colspan="3" align="right">
+					<input 
+						type="submit"
+						class="goCancel" 
+						href="#" 
+						onclick="window.location.href='/cats/';return false;"
+						value="Cancel"> 
+	  			</td>
+  			</tr>
+		</table>
+
+	<p>
+	
+	This category is used by <%= Categorization.count(:category_id => @cat.id) %> links.
+	
+	</p>
+	</form>
+
+
+

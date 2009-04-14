@@ -1,0 +1,52 @@
+<br/><b>Edit URL Entry:</a></b><br/>
+<div class="entryContainer">
+
+	  <form action="/update/<%= @url.id %>" method="POST">
+
+	  	<table width="100%">
+	  		<tr>
+	  			<td align="right">
+	  				Link: 
+	  			</td>
+	  			<td>
+					<input id="url_url" name="url_url"  value="<%= @url.url %>">
+	  			</td>
+	  			<td align="right">
+					<input 
+						type="submit"
+						class="goSave" 
+						href="#" 
+						value="Save"> 
+	  			</td>
+  			</tr>
+  			<tr>
+	  			<td align="right">
+	  				Description: 
+	  			</td>
+	  			<td>
+					<input id="url_desc" name="url_desc"  value="<%= @url.description %>"><br>
+	  			</td>
+	  			<td align="right">
+					<input 
+						type="submit"
+						class="goCancel" 
+						href="#" 
+						onclick="window.location.href='/';return false;"
+						value="Cancel"> 
+	  			</td>
+  			</tr>
+		</table>
+	</form>
+
+
+
+
+
+
+
+
+
+  <div class="sdate">Created on <%= @url.created_at.strftime("%B %d, %Y at %I:%M %p") %></div>
+</div>
+  <br/><a href="/all/">List all</a>
+

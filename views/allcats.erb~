@@ -1,0 +1,24 @@
+
+<h3>Categories</h3>
+
+	<%= erb :newcat, :layout => false %>
+
+	<% if !@categories || @categories.count == 0 %>
+		<div class="warning goWarning frameDiv"><br/><br/>There are no categories in the database. Start by entering a new category.</div>
+	<% end %>
+
+
+<ul><h3>All categories</h3>
+	<% @categories.each do |cat| %>
+
+		<li>
+			<input 
+				type="button" 
+				class="goEdit" 
+				value="" 
+				title="Edit" 
+				onclick="window.location.href='/cats/edit/<%= cat.id %>';"
+			/>
+			<%= cat.name %>
+	<% end %>
+</ul>

@@ -1,0 +1,409 @@
+/* ****************************************************************** */
+/*            BASIC STYLES                                            */
+/* ****************************************************************** */
+
+BODY {
+	background-color: #fff;
+	text-align:left;
+}
+
+img {
+	border: 0px;
+	padding: 0px;
+	margin: 0px;
+	vertical-align: bottom;
+}
+
+li  {
+	list-style-type:none;
+}
+
+li {
+	margin-left: 0;
+	text-indent: 1em;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:link {
+	text-decoration: none;
+	color:blue;
+}
+
+a:visited {
+	text-decoration: none;
+	color:blue;
+}
+
+a:hover  {
+	text-decoration: none;
+	color: #fff;
+	background-color: #aaa;
+}
+
+a:focus  {
+	text-decoration: none;
+}
+
+a:focus, .KeepFocusColor {
+	text-decoration: none;
+	color: #fff;
+	background-color: #aaa;
+}
+
+a:active {
+	text-decoration: none;
+	background-color: #bbb;
+}
+
+.activeLink {
+	text-decoration: underline !important;
+	font-weight: bold;
+}
+
+table th {
+	text-align:left;
+}
+
+fieldset {
+	margin: 10px;
+	border:1px solid #aaa;	
+}
+
+label {
+	margin-right: 15px;
+	margin-left: -3px;
+}
+
+.btn {
+	background-color: #eee;
+	margin: 3px !important;
+	border:1px solid #aaa;	
+}
+
+.btn:hover {
+	border:1px solid #333;	
+}
+
+.leftDiv {
+	float: left;
+}
+
+.rightDiv {
+	float: right;
+	text-align: right;
+}
+
+.warning {
+	color: red;
+}
+
+#newURLDiv, #searchURLDiv {
+	border:1px solid #aaa;	
+	background-color: #ddd;
+	padding: 4px;
+}
+
+#newURLDiv:hover, #searchURLDiv:hover {
+	background-color: #eee;
+}
+
+#newURLMoreDiv {
+}
+
+.mainContainer{
+	border:1px solid #aaa;	
+	overflow: auto;
+	width: 96%;
+}
+
+.allEntriesContainer{
+	border:3px solid #ccc;	
+	overflow: hidden;
+}
+
+.topBar{
+	border:3px solid #ccc;	
+	background-color:#ccc;
+}
+
+.entryContainer{
+	border:3px solid #ccc;	
+	overflow: hidden;
+	width: 55%;
+}
+
+.urlDivContainer {
+	padding-left: 4px;
+	padding-right: 4px;
+	overflow: hidden;
+}
+
+.urlDivContainer:hover {
+	background-color: #eee;
+}
+
+.urlDiv {
+	width: 40%;
+	float: left;
+}
+.urlDescDiv {
+	float: left;
+	color: #bbb;
+}
+
+.urlEditDel {
+	white-space:nowrap;
+	float: right;
+	text-align: right;
+	padding: 3px;
+}
+
+.frameDiv{
+	border:1px solid #aaa;	
+}
+
+.sdate {
+	margin-left: 1em;
+	color: #aaa;
+}
+
+/* ****************************************************************** */
+/*  		BUTTONS / FORM ELEMENTS
+/* ****************************************************************** */
+
+.goCreateUser {
+	padding: 2px 2px 2px 18px;
+	background-image: url(add_user.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}	
+
+.goEditUser {
+	padding: 2px 2px 2px 18px;
+	background-image: url(edit_user.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+.goClear {
+	padding: 2px 2px 2px 18px;
+	background-image: url(edit-clear.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+.goEdit {
+	padding: 2px 2px 2px 18px;
+	background-image: url(edit.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+.goAdd {
+	padding: 2px 2px 2px 18px;
+	background-image: url(list-add.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+.goMore {
+	padding: 2px 2px 2px 18px;
+	background-image: url(view_text.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+.goOUlink {
+	padding: 0px 0px 0px 18px !important;
+	background-image: url(ou-icon.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+.goRemove {
+	padding: 2px 2px 2px 18px;
+	background-image: url(list-remove.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+.goTermUser {
+	padding: 2px 2px 2px 18px;
+	background-image: url(delete_user.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+.goDelete {
+	padding: 2px 2px 2px 18px;
+	background-image: url(edit-delete.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+.goCancel, .goClose {
+	padding: 2px 2px 2px 18px;
+	background-image: url(window-close.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+.goSave {
+	padding: 2px 2px 2px 18px;
+	background-image: url(save.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+.goInfo {
+	padding: 2px 2px 2px 18px;
+	background-image: url(info.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+.goWarning {
+	padding: 2px 2px 2px 18px;
+	background-image: url(dialog-warning.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+.goEnable {
+	padding: 2px 2px 2px 18px;
+	background-image: url(stock_lock-open.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+.goHistory {
+	padding: 2px 2px 2px 18px;
+	background-image: url(history.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+.goDisable {
+	padding: 2px 2px 2px 18px;
+	background-image: url(stock_lock.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+.goResetPass {
+	padding: 2px 2px 2px 18px;
+	background-image: url(password.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+.goEditGroups {
+	padding: 2px 2px 2px 18px;
+	background-image: url(system-users.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+.goHome {
+	padding: 1px 1px 1px 24px;
+	background-image: url(go-home.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+.goNext {
+	padding: 2px 2px 2px 18px;
+	background-image: url(go-next.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+.goPrevious {
+	padding: 2px 2px 2px 18px;
+	background-image: url(go-previous.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+.goDown {
+	padding: 2px 2px 2px 18px;
+	background-image: url(1downarrow.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}	
+
+.goFind {
+	padding: 2px 2px 2px 18px;
+	background-image: url(system-search.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+.goAll {
+	padding: 2px 2px 2px 18px;
+	background-image: url(system-run.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+.goPrint {
+	padding: 2px 2px 2px 18px;
+	background-image: url(printer1.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+.goRefresh {
+	padding: 2px 2px 2px 18px;
+	background-image: url(view-refresh.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+.goQueue {
+	padding: 2px 2px 2px 18px;
+	background-image: url(view-mag.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+.goLog {
+	padding: 2px 2px 2px 18px;
+	background-image: url(logviewer-16.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+.search, #checkUserExistsButton, .goShowUser {
+	padding: 2px 2px 2px 18px;
+	background-image: url(search_user.png);
+	background-position: 2px 2px;
+	background-repeat: no-repeat;
+}
+
+input {
+	background-color: #fff;
+}
+
+input:hover {
+	background-color: #FFFFCC;	
+}
+
+input:focus {
+	background-color: #FFFFCC;	
+}
+
+.readOnly, .readOnly:hover, .readOnly:hover, .readOnly:focus  {
+	color: #333;
+	background-color: transparent;
+	border: 0px;
+	border-left: 1px solid #fff;
+	padding: 0px 0px 0px 5px;
+}
+
+.noDirectModify, .noDirectModify:hover, .noDirectModify:focus {
+	background-color: #eee;
+}

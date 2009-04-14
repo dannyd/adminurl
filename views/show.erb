@@ -1,0 +1,10 @@
+<br/><b>URL Entry:</a></b><br/>
+<div class="allEntriesContainer">
+	<div class="infoDiv">
+		<a href="<%= @url.url %>" target="_blank"><%= @url.url %></a>
+			(<%= @url.description %>)
+	</div>
+  <div class="sdate">Created on <%= @url.created_at.strftime("%B %d, %Y at %I:%M %p") %></div>
+</div>
+  <br/><a href="/all/">List all</a>
+

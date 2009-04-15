@@ -77,6 +77,10 @@ label {
 	margin-left: -3px;
 }
 
+label:hover {
+	color: #555;
+}
+
 .btn {
 	background-color: #eee;
 	margin: 3px !important;

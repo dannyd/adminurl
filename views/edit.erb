@@ -9,7 +9,11 @@
 	  				Link: 
 	  			</td>
 	  			<td>
-					<input id="url_url" name="url_url"  value="<%= @url.url %>">
+					<input 
+						name="url[url]" 
+						id="url_url" 
+						value="<%= @url.url %>"
+					/>
 	  			</td>
 	  			<td align="right">
 					<a 
@@ -25,7 +29,10 @@
 	  				Description: 
 	  			</td>
 	  			<td>
-					<input id="url_desc" name="url_desc"  value="<%= @url.description %>"><br>
+					<input 
+						name="url[description]" 
+						id="url_description" 
+						value="<%= @url.description %>"><br>
 	  			</td>
 	  			<td align="right">
 					<a 
@@ -46,13 +53,13 @@
 
 			<% @categories.each do |cat| %>
 				<input 
-					id="category_id_<%= cat.id %>" 
-					name="category_id"
+					id="categories_id_<%= cat.id %>" 
+					name="categories[id]"
 					type="checkbox" 
 					value="<%= cat.id %>" 
 					<%= "CHECKED" if Categorization.count(:category_id => cat.id, :id => @url.id) > 0 %>
 				/>
-				<label for="<%= cat.id %>"><%= cat.name %></label> 
+				<label for="categories_id_<%= cat.id %>"><%= cat.name %></label> 
 
 			<% end %>
 		</fieldset>

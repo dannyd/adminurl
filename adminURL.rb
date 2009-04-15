@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'sinatra'
+require 'data_mapper'
 require 'dm-core'
 #require 'dm-more'
 require 'dm-validations'
@@ -10,7 +11,7 @@ set :port, 8080
 
 DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/adminURL.sqlite3")
 
-#DataMapper::Logger.new(STDOUT, :debug) # :off, :fatal, :error, :warn, :info, :debug
+DataMapper::Logger.new(STDOUT, :debug) # :off, :fatal, :error, :warn, :info, :debug
 DataObjects::Sqlite3.logger = DataObjects::Logger.new(STDOUT, 0)
 
 class Url
@@ -29,6 +30,16 @@ class Url
 
 	has n, :categorizations
 	has n, :categories, :through => :categorizations
+
+
+	before :save, :markup_url
+
+	private
+
+	def markup_url
+		# default urls will be http, unless specified
+		self.url = "http://#{url}" unless url.match("://") || url.match("\\\\")
+	end
 
 end
 
@@ -64,10 +75,12 @@ end
 
 get '/' do
 	@urls = Url.all()
+	@newUrl = Url.new
 	erb :all
 end
 
 get '/new/' do
+	@newUrl = Url.new
 	erb(:new)
 end
 
@@ -81,60 +94,11 @@ get '/:id' do
 end
 
 post '/new/' do
-	url = params[:new_url]
-	desc = params[:new_desc]
-	url = "http://#{url}" unless url.match("://") || url.match("\\\\")
-
-	@url = Url.new(:url => url, :description => desc)
-	@url.save
-	if @url.save
+	@newUrl = Url.new(params[:newUrl])
+	if @newUrl.save
 		redirect "/"
 	else
-		@url.errors.each do |e|
-			e
-		end
-	end
-end
-
-post '/update/:id' do
-	urlid = params[:id]
-	url = params[:url_url]
-	desc = params[:url_desc]
-	category = params[:category_id]
-
-	url = "http://#{url}" unless url.match("://") || url.match("\\\\")
-	@url = Url.get(urlid)
-
-#	@url.attributes = {:url => url, :description => desc, :category_id => category}
-	@url.attributes = {:url => url, :description => desc}
-
-	if category
-		@cat = Categorization.get(urlid)
-		# || @cat = Categorization.create(:category_id => category.to_i, :url_id => urlid.to_i)
-	#	@cat.attributes = {:category_id => category.to_i, :id => urlid.to_i}
-		@cat.save
-	end
-		
-	if @url.save
-		redirect "/"
-	else
-		@url.errors.each do |e|
-			e
-		end
-	end
-end
-
-get '/all/' do
-	@urls = Url.all()
-	erb :all
-end
-
-get '/delete/:id' do
-	@url = Url.get(params[:id])
-	if @url.destroy
-		redirect "/"
-	else
-		redirect '/wtf/'
+		erb(:all)
 	end
 end
 
@@ -146,6 +110,60 @@ get '/edit/:id' do
 		erb(:edit)
 	else
 		redirect "/wtf/"
+	end
+end
+
+post '/update/:id' do
+	category = params[:categories]
+
+##	cats = @url.delete('categories')
+
+	@url = Url.get(params[:id])
+
+	@url.update_attributes(params[:url])
+
+#		if category
+
+#			redirect "/edit/" + params[:id]
+#		end
+
+	if @url.save
+			Categorization.create(:url_id => params[:id], :category => params[:category])
+			redirect "/edit/" + params[:id]
+
+	else
+		@url.errors.each do |e|
+			e
+		end
+	end
+end
+
+post '/updatesav/:id' do
+	urlid = params[:id]
+	url = params[:url_url]
+	desc = params[:url_desc]
+	category = params[:category_id]
+
+	url = "http://#{url}" unless url.match("://") || url.match("\\\\")
+	@url = Url.get(urlid)
+
+	@url.attributes = {:url => url, :description => desc}
+	
+	if @url.save
+		redirect "/"
+	else
+		@url.errors.each do |e|
+			e
+		end
+	end
+end
+
+get '/delete/:id' do
+	@url = Url.get(params[:id])
+	if @url.destroy
+		redirect "/"
+	else
+		redirect '/wtf/'
 	end
 end
 
@@ -229,6 +247,6 @@ get '/wtf/' do
 	"What the fuck?"
 end
 
-error do
-	"Oops! " + request.env["sinatra.error"].message
-end
+#error do
+#	"Oops! " + request.env["sinatra.error"].message
+#end

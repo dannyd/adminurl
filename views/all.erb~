@@ -20,7 +20,7 @@
 						onclick="window.location.href='/find/'+URLEncode(document.getElementById('search_url').value);"
 						value="Search"
 					/> 
-					<% if @searchTerm %>
+				<% if @searchTerm %>
 					<input 
 						type="button"
 						class="goAll" 

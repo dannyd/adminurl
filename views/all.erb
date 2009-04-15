@@ -65,7 +65,7 @@
 			<% @urls.each do |url| %>
 			
 			<tr class="urlDivContainer">
-				<td xclass="urlDiv">
+				<td class="urlDiv">
 				  	<a href="<%= url.url %>" target="_blank"><%= url.url %></a>
 				</td>
 				<td class="urlDescDiv">
@@ -78,9 +78,11 @@
 					<% end %>
 					</div>
 				</td>
-				<td class="urlEditDel" width="8%">
+				<td class="urlEditDel">
 					<a 
-						href="/edit/<%= url.id %>"
+						href="#" 
+						onclick="popupBig('/edit/<%= url.id %>');"
+						xhref="/edit/<%= url.id %>"
 						class="btn goEdit" 
 						title="Edit" 
 					>

@@ -112,20 +112,22 @@ post '/update/:id' do
 	@url = Url.get(params[:id])
 	@url.update_attributes(params[:url])
 
-	@flash = "Added to categories:<br>"
+	#@flash = "Added to categories:<br>"
 	#@url.categorizations = []
 	Categorization.all(:url_id => params[:id]).destroy!
 	if categories
 		categories.each do |catHashKey,catHashVal|
 			catHashVal.each do |cat|
-				@flash = @flash + " - " + Category.get( cat ).name + "<br>"
+				#@flash = @flash + " - " + Category.get( cat ).name + "<br>"
 				Categorization.create(:category_id => Category.get( cat ).id, :url_id => @url.id)
 			end
 		end
 	end
-		
+			
 	if @url.save
+		@saveSuccessful = true
 		@categories = Category.all()
+		@flash = "Save was successful"
 		erb(:edit)
 	else
 		@url.errors.each do |e|
@@ -184,7 +186,7 @@ end
 
 get '/cats/' do
 	@categories = Category.all()
-	erb :allcats
+	erb :allcats, :layout => false 
 end
 
 post '/cats/new/' do
@@ -205,7 +207,7 @@ end
 get '/cats/edit/:id' do
 	@cat = Category.get(params[:id])
 	if @cat
-		erb(:editcat)
+		erb(:editcat, :layout => false )
 	else
 		redirect "/wtf/"
 	end

@@ -68,13 +68,14 @@ table th {
 }
 
 fieldset {
-	margin: 10px;
+	margin: 8px;
 	border:1px solid #aaa;	
+	white-space: auto;
 }
 
 label {
 	margin-right: 15px;
-	margin-left: -3px;
+	margin-left: -1px;
 }
 
 label:hover {
@@ -144,7 +145,7 @@ label:hover {
 .entryContainer{
 	border:3px solid #ccc;	
 	overflow: hidden;
-	width: 55%;
+	xwidth: 55%;
 }
 
 .urlDivContainer {
@@ -158,11 +159,9 @@ label:hover {
 }
 
 .urlDiv {
-	width: 40%;
-	float: left;
+	xwidth: 40%;
 }
 .urlDescDiv {
-	float: left;
 	color: #bbb;
 }
 
@@ -178,11 +177,11 @@ label:hover {
 #allEntriesTable thead th{
 	border:		1px Solid;
 	border-color: #ccc;
-	background-color: #666;
+	color: #ffdef7;
+	background-color: #73596a;
 	padding: 2px 15px 2px 2px;
 	xmargin:2px;
 	white-space: nowrap;
-	color: #ccc;
 }
 
 #allEntriesTable td{
@@ -194,6 +193,7 @@ label:hover {
 	white-space:nowrap;
 	text-align: right;
 	padding: 5px;
+	width: 7%;
 }
 
 .frameDiv{

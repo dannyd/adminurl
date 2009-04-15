@@ -1,79 +1,82 @@
+<% if @saveSuccessful == true %>
+	<script language=javascript>
+		window.opener.location.reload();
+		setTimeout("window.close();",1600);
+	</script>
+<% else %>
 
-<%= @flash  %>
+	<br/><b>Edit URL Entry:</a></b><br/>
+	<div class="entryContainer">
 
-<br/><b>Edit URL Entry:</a></b><br/>
-<div class="entryContainer">
+		  <form name="editurlform" action="/update/<%= @url.id %>" method="POST">
 
-	  <form name="editurlform" action="/update/<%= @url.id %>" method="POST">
+		  	<table width="100%">
+		  		<tr>
+		  			<td align="right">
+		  				Link: 
+		  			</td>
+		  			<td>
+						<input 
+							name="url[url]" 
+							id="url_url" 
+							value="<%= @url.url %>"
+						/>
+		  			</td>
+		  			<td align="right">
+						<a 
+							href="#" 
+							class="btn goSave" 
+							onclick="document.editurlform.submit();"
+						>Save
+						</a>
+		  			</td>
+	  			</tr>
+	  			<tr>
+		  			<td align="right">
+		  				Description: 
+		  			</td>
+		  			<td>
+						<input 
+							name="url[description]" 
+							id="url_description" 
+							value="<%= @url.description %>"><br>
+		  			</td>
+		  			<td align="right">
+						<a 
+							href="#" 
+							class="btn goCancel" 
+							onclick="window.close();"
+						>Close
+						</a> 
+		  			</td>
+	  			</tr>
+			</table>
 
-	  	<table width="100%">
-	  		<tr>
-	  			<td align="right">
-	  				Link: 
-	  			</td>
-	  			<td>
+			<br/>
+			<br/>
+
+			<fieldset>
+				<legend>Categories: <a href="#" onclick="popup('/cats/');" >Edit</a></legend>
+
+				<% @categories.each do |cat| %>
 					<input 
-						name="url[url]" 
-						id="url_url" 
-						value="<%= @url.url %>"
-					/>
-	  			</td>
-	  			<td align="right">
-					<a 
-						href="#" 
-						class="btn goSave" 
-						onclick="document.editurlform.submit();"
-					>Save
-					</a>
-	  			</td>
-  			</tr>
-  			<tr>
-	  			<td align="right">
-	  				Description: 
-	  			</td>
-	  			<td>
-					<input 
-						name="url[description]" 
-						id="url_description" 
-						value="<%= @url.description %>"><br>
-	  			</td>
-	  			<td align="right">
-					<a 
-						href="#" 
-						class="btn goCancel" 
-						onclick="window.location.href='/';return false;"
-					>Cancel
-					</a> 
-	  			</td>
-  			</tr>
-		</table>
+						id="categories_id_<%= cat.id %>" 
+						name="categories[id]"
+						type="checkbox" 
+						value="<%= cat.id %>" 
+						<%= "CHECKED" if Categorization.count(:category_id => cat.id, :url_id => @url.id) > 0 %>
+					/><label for="categories_id_<%= cat.id %>"><%= cat.name %></label> <br/>
 
-		<br/>
-		<br/>
+				<% end %>
+			</fieldset>
 
-		<fieldset>
-			<legend>Categories: <a href="/cats/">Edit</a></legend>
+		</form>
+	</div>
 
-			<% @categories.each do |cat| %>
-				<input 
-					id="categories_id_<%= cat.id %>" 
-					name="categories[id]"
-					type="checkbox" 
-					value="<%= cat.id %>" 
-					<%= "CHECKED" if Categorization.count(:category_id => cat.id, :url_id => @url.id) > 0 %>
-				/>
-				<label for="categories_id_<%= cat.id %>"><%= cat.name %></label> 
-
-			<% end %>
-		</fieldset>
-
-	</form>
-</div>
-
-<br/>
-	<div class="goInfo">
-		<div class="sdate">Created on <%= @url.created_at.strftime("%B %d, %Y at %I:%M %p") %></div>
-		<div class="sdate">Updated on <%= @url.updated_at.strftime("%B %d, %Y at %I:%M %p") %></div>
-	</div>	
-  <br/><a href="/">Back</a>
+	<br/>
+		<div class="goInfo">
+			<div class="sdate">Created on <%= @url.created_at.strftime("%B %d, %Y at %I:%M %p") %></div>
+			<div class="sdate">Updated on <%= @url.updated_at.strftime("%B %d, %Y at %I:%M %p") %></div>
+		</div>	
+<% end %>
 

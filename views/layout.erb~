@@ -10,7 +10,13 @@
 	<a href="/">AdminURL Home</a>
 </p>
 
-	<%= if @flash %>
+	<% if @flash %>
+		<div id="flashDiv">
+			<%= @flash %>
+		</div>
+	<% end %>
+	
+	
 	<%= yield %>
   
 

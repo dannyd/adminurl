@@ -123,8 +123,9 @@ post '/update/:id' do
 			end
 		end
 	end
-		
+			
 	if @url.save
+		@saveSuccessful = true
 		@categories = Category.all()
 		@flash = "Save was successful"
 		erb(:edit)

@@ -1,11 +1,10 @@
 require 'rubygems'
-require 'sinatra'
 require 'data_mapper'
-require 'dm-core'
-#require 'dm-more'
+#require 'dm-core'
 require 'dm-validations'
 require 'dm-aggregates'
 require 'dm-timestamps'
+require 'sinatra'
 
 set :port, 8080
 
@@ -23,18 +22,7 @@ class Url
 	property :created_at, DateTime
 	property :updated_at, DateTime
 
-	#belongs_to :categories
-
-	#validates_present :url
-	#validates_length :url, :minimum => 15
-
-	has n, :categorizations
-	has n, :categories, :through => :categorizations
-
-
 	before :save, :markup_url
-
-	private
 
 	def markup_url
 		# default urls will be http, unless specified
@@ -44,25 +32,31 @@ class Url
 end
 
 class Category
-	include DataMapper::Resource
-
-	property :id,         Serial
-	property :name,       String
-
-	has n, :categorizations
-	has n, :urls,      :through => :categorizations
+  include DataMapper::Resource
+  property :id,       Serial
+  property :name,     String
 end
 
 class Categorization
-	include DataMapper::Resource
-	property :id,         Serial
-	property :created_at, DateTime
+  include DataMapper::Resource
+  property :id,       Serial
+  belongs_to :category
+  belongs_to :url
+end
 
-	belongs_to :url
-	belongs_to :category
+class Url
+  has n, :categorizations
+  has n, :categories, :through => :categorizations
+end
+ 
+class Category
+  has n, :categorizations
+  has n, :urls,      :through => :categorizations
 end
 
 DataMapper.auto_upgrade!
+## NEVER RUN auto_migrate - DELETES TABLES 
+## DataMapper.auto_migrate!
 
 use Rack::Auth::Basic do |username, password|
 	username == 'admin' && password == 'secret'
@@ -114,23 +108,26 @@ get '/edit/:id' do
 end
 
 post '/update/:id' do
-	category = params[:categories]
-
-##	cats = @url.delete('categories')
-
+	categories = params[:categories]
 	@url = Url.get(params[:id])
-
 	@url.update_attributes(params[:url])
 
-#		if category
-
-#			redirect "/edit/" + params[:id]
-#		end
-
+	#@flash = "Added to categories:<br>"
+	#@url.categorizations = []
+	Categorization.all(:url_id => params[:id]).destroy!
+	if categories
+		categories.each do |catHashKey,catHashVal|
+			catHashVal.each do |cat|
+				#@flash = @flash + " - " + Category.get( cat ).name + "<br>"
+				Categorization.create(:category_id => Category.get( cat ).id, :url_id => @url.id)
+			end
+		end
+	end
+		
 	if @url.save
-			Categorization.create(:url_id => params[:id], :category => params[:category])
-			redirect "/edit/" + params[:id]
-
+		@categories = Category.all()
+		@flash = "Save was successful"
+		erb(:edit)
 	else
 		@url.errors.each do |e|
 			e

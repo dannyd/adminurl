@@ -1,3 +1,6 @@
+
+<%= @flash  %>
+
 <br/><b>Edit URL Entry:</a></b><br/>
 <div class="entryContainer">
 
@@ -53,13 +56,13 @@
 
 			<% @categories.each do |cat| %>
 				<input 
-					id="category_id_<%= cat.id %>" 
-					name="category[id]"
+					id="categories_id_<%= cat.id %>" 
+					name="categories[id]"
 					type="checkbox" 
 					value="<%= cat.id %>" 
-					<%= "CHECKED" if Categorization.count(:category_id => cat.id, :id => @url.id) > 0 %>
+					<%= "CHECKED" if Categorization.count(:category_id => cat.id, :url_id => @url.id) > 0 %>
 				/>
-				<label for="category_id_<%= cat.id %>"><%= cat.name %></label> 
+				<label for="categories_id_<%= cat.id %>"><%= cat.name %></label> 
 
 			<% end %>
 		</fieldset>

@@ -9,10 +9,11 @@
 <p>
 	<a href="/">AdminURL Home</a>
 </p>
-  <%= yield %>
+
+	<%= if @flash %>
+	<%= yield %>
   
-  <hr>
-  <%= params[:all] %>
+
 </body>
 </html>
 

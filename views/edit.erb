@@ -1,3 +1,4 @@
+
 <br/><b>Edit URL Entry:</a></b><br/>
 <div class="entryContainer">
 
@@ -57,7 +58,7 @@
 					name="categories[id]"
 					type="checkbox" 
 					value="<%= cat.id %>" 
-					<%= "CHECKED" if Categorization.count(:category_id => cat.id, :id => @url.id) > 0 %>
+					<%= "CHECKED" if Categorization.count(:category_id => cat.id, :url_id => @url.id) > 0 %>
 				/>
 				<label for="categories_id_<%= cat.id %>"><%= cat.name %></label> 
 

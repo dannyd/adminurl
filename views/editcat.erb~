@@ -1,4 +1,8 @@
 
+<script language=javascript>
+	onbeforeunload="window.opener.location.reload()";
+</script>
+	
 <b>Edit category:</b>
 <div class="entryContainer">
 

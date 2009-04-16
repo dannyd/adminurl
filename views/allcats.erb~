@@ -1,4 +1,8 @@
 
+<script language=javascript>
+	function onunload()={window.opener.location.reload();};
+</script>
+	
 <h3>Categories</h3>
 
 	<%= erb :newcat, :layout => false %>

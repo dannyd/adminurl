@@ -1,65 +1,33 @@
 require 'rubygems'
-require 'data_mapper'
-#require 'dm-core'
-require 'dm-validations'
-require 'dm-aggregates'
+#require 'data_mapper'
+require 'dm-core'
+#require 'dm-validations'
+#require 'dm-aggregates'
 require 'dm-timestamps'
+require 'model'
 require 'sinatra'
+
+############################ 
+## Configuration
+############################ 
+#   username for HTTP authentication
+@httpPort = 8080
+
+#   username for HTTP authentication
+@authUsername = 'admin'
+
+#   password for HTTP authentication
+@authPassword = 'secret'
+
+############################ 
+## End of Configuration
+############################ 
+
 
 set :port, 8080
 
-DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/adminURL.sqlite3")
-
-DataMapper::Logger.new(STDOUT, :debug) # :off, :fatal, :error, :warn, :info, :debug
-DataObjects::Sqlite3.logger = DataObjects::Logger.new(STDOUT, 0)
-
-class Url
-	include DataMapper::Resource
-
-	property :id,				 Integer, :serial => true		# primary serial key
-	property :url,			 Text,		:nullable => false # cannot be null
-	property :description,			 Text,		:nullable => true # can be null
-	property :created_at, DateTime
-	property :updated_at, DateTime
-
-	before :save, :markup_url
-
-	def markup_url
-		# default urls will be http, unless specified
-		self.url = "http://#{url}" unless url.match("://") || url.match("\\\\")
-	end
-
-end
-
-class Category
-  include DataMapper::Resource
-  property :id,       Serial
-  property :name,     String
-end
-
-class Categorization
-  include DataMapper::Resource
-  property :id,       Serial
-  belongs_to :category
-  belongs_to :url
-end
-
-class Url
-  has n, :categorizations
-  has n, :categories, :through => :categorizations
-end
- 
-class Category
-  has n, :categorizations
-  has n, :urls,      :through => :categorizations
-end
-
-DataMapper.auto_upgrade!
-## NEVER RUN auto_migrate - DELETES TABLES 
-## DataMapper.auto_migrate!
-
 use Rack::Auth::Basic do |username, password|
-	username == 'admin' && password == 'secret'
+	username == @authUsername && password == @authPassword
 end
 
 
@@ -69,12 +37,10 @@ end
 
 get '/' do
 	@urls = Url.all()
-	@newUrl = Url.new
 	erb :all
 end
 
 get '/new/' do
-	@newUrl = Url.new
 	erb(:new)
 end
 
@@ -123,7 +89,7 @@ post '/update/:id' do
 			end
 		end
 	end
-			
+
 	if @url.save
 		@saveSuccessful = true
 		@categories = Category.all()
@@ -165,20 +131,29 @@ get '/delete/:id' do
 	end
 end
 
-get '/find/:searchTerm*?' do
-	if params[:searchTerm]
-		@searchTerm = "#{params[:searchTerm]}".chomp	
-		@Urls = Url.all(:conditions => ["url LIKE ? OR description LIKE ?", '%' + @searchTerm + '%', '%' + @searchTerm + '%'])
+#post '/find/:searchTerm*?' do
+get '/find/*' do
+	if params[:search_url]
+		@searchTerm = "#{params[:search_url]}".chomp	
+		@urls = Url.all(:conditions => ["url LIKE ? OR description LIKE ?", '%' + @searchTerm + '%', '%' + @searchTerm + '%'])
 	else
 		redirect "/"
 	end		
 
-	if @Urls
+	if @urls
+		
 		erb(:all)
 	else
-		redirect "/"
+		redirect "/wtf/"
 	end
 end
+
+get '/cat/:cat' do
+	redirect "/" if params[:cat].to_s == "*"
+	@urls = Categorization.all(:category_id => params[:cat]).url
+	erb :all
+end
+
 
 ############################ 
 ## Categories
@@ -186,7 +161,7 @@ end
 
 get '/cats/' do
 	@categories = Category.all()
-	erb :allcats, :layout => false 
+	erb :allcats
 end
 
 post '/cats/new/' do
@@ -207,7 +182,7 @@ end
 get '/cats/edit/:id' do
 	@cat = Category.get(params[:id])
 	if @cat
-		erb(:editcat, :layout => false )
+		erb(:editcat)
 	else
 		redirect "/wtf/"
 	end
@@ -242,9 +217,6 @@ end
 
 # Show wtf
 get '/wtf/' do
-	"What the fuck?"
+	"What the?"
 end
 
-#error do
-#	"Oops! " + request.env["sinatra.error"].message
-#end

@@ -85,11 +85,11 @@ function showhide(item) {
 }
 
 function popup(url) {
-	bla = window.open(url,'newwindow','width=600,height=500,scrollbars=no');
+	myPopup = window.open(url,'myPopup','width=600,height=500,scrollbars=no');
 }
 
 function popupBig(url) {
-	bla = window.open(url,'newwindow','width=750,height=625,scrollbars=no');
+	myBigPopup = window.open(url,'myBigPopup','width=750,height=625,scrollbars=no');
 }
 
 function spopup(url) {

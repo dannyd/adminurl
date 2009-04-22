@@ -82,14 +82,31 @@ label:hover {
 	color: #555;
 }
 
-.btn {
-	background-color: #eee;
-	margin: 3px !important;
-	border:1px solid #aaa;	
+button, button img {
+  	background-color:#f5f5f5;
+    border:1px solid #dedede;
+    xmargin:0 3px -3px 0 !important;
+    padding: 10;
+    xwidth:122px;
+    xheight:122px;
 }
 
-.btn:hover {
+button:hover {
+    background-color:#6299c5;
+    border:1px solid black;
+    color:white;
+}
+
+button:active {
+    background-color:#dff4ff;
 	border:1px solid #333;	
+    color:#fff;
+}
+
+button img {
+	padding: 0px !important;
+	background-position: -22px 1px  0px 0px !important;
+	margin: 0px;
 }
 
 .leftDiv {
@@ -145,7 +162,7 @@ label:hover {
 .entryContainer{
 	border:3px solid #ccc;	
 	overflow: hidden;
-	width: 55%;
+	xwidth: 55%;
 }
 
 .urlDivContainer {
@@ -442,3 +459,5 @@ input:focus {
 .noDirectModify, .noDirectModify:hover, .noDirectModify:focus {
 	background-color: #eee;
 }
+
+

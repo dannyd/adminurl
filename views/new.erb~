@@ -1,6 +1,6 @@
 
 
-
+<% @newUrl = Url.new if !@newUrl %>
 
 
 <div id="newURLDiv">
@@ -13,12 +13,13 @@
 			value="<%= @newUrl.url %>"
 			onfocus="showDiv('newURLMoreDiv');"
 		/>
-		<input 
+		<button 
 			type="submit" 
-			value="Add"
+			title="Add"
 			class="goAdd" 
-			onclick="if(document.getElementById('newUrl_url').
-		/>
+			onclick="if(trimAll(document.getElementById('newUrl_url').value)==''){return false;}"
+		>Add
+		</button>
 		<div id="newURLMoreDiv">
 			Link description: 
 			<input 
@@ -27,7 +28,10 @@
 				value="<%= @newUrl.description %>"
 				size="30"
 			/>
-			<a class="goCancel" href="#" onclick="hideDiv('newURLMoreDiv');">&nbsp;</a>
+			<button 
+				onclick="hideDiv('newURLMoreDiv');"
+			><img src="/css/window-close.png">
+			</button>
 		</div>
 	</form>
 </div>

@@ -3,8 +3,19 @@
 	function onunload(){window.opener.location.reload();};
 </script>
 	
-<h3>Categories</h3>
-
+<div>	
+	<div class="rightDiv">	
+		<button 
+			class="btn goCancel" 
+			onclick="window.close();"
+			title="Close"
+		>Close
+		</button> 
+	</div>	
+	<div>	
+		<h3>Categories</h3>
+	</div>	
+</div>
 	<%= erb :newcat, :layout => false %>
 
 	<% if !@categories || @categories.count == 0 %>
@@ -16,13 +27,15 @@
 	<% @categories.each do |cat| %>
 
 		<li>
-			<input 
+			<button 
 				type="button" 
 				class="goEdit" 
 				value="" 
 				title="Edit" 
 				onclick="window.location.href='/cats/edit/<%= cat.id %>';"
-			/>
+			>Edit
+			</button>
+			
 			<%= cat.name %>
 	<% end %>
 </ul>

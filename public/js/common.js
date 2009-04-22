@@ -101,11 +101,11 @@ function clearDiv(div) {
 }
 
 function hideDiv(div) {
-	document.getElementById(div).style.display = 'none';
+	if (document.getElementById(div)) {document.getElementById(div).style.display = 'none';}
 }
 
 function showDiv(div) {
-	document.getElementById(div).style.display = 'block';
+	if (document.getElementById(div)) {document.getElementById(div).style.display = 'block';}
 }
 
 function toggleDiv(div) {

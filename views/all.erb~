@@ -6,33 +6,47 @@
 		<tr>
 			<td valign="top">
 				<div id="searchURLDiv">
+					<form action="/find/" method="GET">
 
-					<input 
-						id="search_url" 
-						name="search_url"
-						value="<%= @searchTerm %>"
-					/>
-
-					<input 
-						type="button"
-						class="goFind" 
-						href="#" 
-						onclick="window.location.href='/find/'+URLEncode(document.getElementById('search_url').value);"
-						value="Search"
-					/> 
-					<% if @searchTerm %>
 						<input 
-							type="button"
-							class="goAll" 
-							href="#" 
-							onclick="window.location.href='/';"
-							value="Show all"
-						/> 
-					<% end %>
+							id="search_url" 
+							name="search_url"
+							value="<%= @searchTerm %>"
+						/>
+
+						<button
+							class="goFind" 
+							onclick="window.location.href='/find/'+URLEncode(document.getElementById('search_url').value);"
+							title="Search"
+						>Search
+						</button>
+						<% if @searchTerm || params[:cat] %>
+							<button
+								class="goAll" 
+								onclick="window.location.href='/';return false;"
+								title="Clear search and show all"
+							>Show all
+							</button>
+						<% end %>
+						<select id="cat" onchange="document.location='/cat/'+this.options[this.selectedIndex].value;">
+							<option 
+								value="*" 
+								<%= "SELECTED" "*" == params[:cat].to_s %>
+							>All Categories
+
+							<% Category.all.each do |c| %>
+								<option 
+									value="<%= c.id %>" 
+									<%= "SELECTED" if c.id.to_s == params[:cat].to_s %>
+								><%= c.name %> (<%= Categorization.all(:category_id => c.id).count %>)
+							<% end %>
+						</select>
+					</form>
+			
 				</div>
 			</td>
 
-			<td align="right" xclass="rightDiv">
+			<td align="right">
 				<%= erb :new, :layout => false %>
 				<script language=javascript>hideDiv('newURLMoreDiv');</script>
 			</td>
@@ -79,24 +93,21 @@
 					</div>
 				</td>
 				<td class="urlEditDel">
-					<a 
-						href="#" 
-						onclick="popup('/edit/<%= url.id %>');"
-						xhref="/edit/<%= url.id %>"
-						class="btn goEdit" 
-						title="Edit" 
-					>
-					</a>
+					<div  class="buttons">
+						<button
+							onclick="popupBig('/edit/<%= url.id %>');"
+							class="goEdit" 
+							title="Edit" 
+						>&nbsp;</button>
 
-					<a
-						href="#"
-						onclick="if (confirmDelete('<%= url.url %>') ){window.location.href='/delete/<%= url.id %>';}"
-						type="button" 
-						class="btn goDelete" 
-						value="" 
-						title="Delete" 
-					>
-					</a>
+						<button
+							onclick="if (confirmDelete('<%= url.url %>') ){window.location.href='/delete/<%= url.id %>';}"
+							type="button" 
+							class="goDelete" 
+							value="" 
+							title="Delete" 
+						>&nbsp;</button>
+					</div>
 				</td>
 			</tr>
 			<% end %>

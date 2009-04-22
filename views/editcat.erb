@@ -17,31 +17,33 @@
 					<input id="cat_name" name="cat_name"  value="<%= @cat.name %>">
 	  			</td>
 	  			<td align="right">
-					<input 
+					<button 
 						type="submit"
 						class="goSave" 
 						href="#" 
-						value="Save"> 
+						title="Save">Save
+					</button>
 	  			</td>
   			</tr>
   			<tr>
 	  			<td colspan="3" align="right">
-					<input 
+					<button 
 						type="submit"
 						class="goDelete" 
-						href="#" 
 						onclick="if (confirmDeleteCat('<%= @cat.name %>') ){window.location.href='/cats/delete/<%= @cat.id %>';};return false;"
-						value="Delete"> 
+						title="Delete">Delete
+					</button>
+						
 	  			</td>
   			</tr>
   			<tr>
 	  			<td colspan="3" align="right">
-					<input 
+					<button 
 						type="submit"
 						class="goCancel" 
-						href="#" 
 						onclick="window.location.href='/cats/';return false;"
-						value="Cancel"> 
+						title="Cancel">Cancel
+					</button>
 	  			</td>
   			</tr>
 		</table>

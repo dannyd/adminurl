@@ -2,7 +2,7 @@ require 'rubygems'
 #require 'data_mapper'
 require 'dm-core'
 #require 'dm-validations'
-#require 'dm-aggregates'
+require 'dm-aggregates'
 require 'dm-timestamps'
 require 'model'
 require 'sinatra'
@@ -124,14 +124,16 @@ end
 
 get '/delete/:id' do
 	@url = Url.get(params[:id])
+	Categorization.all(:url_id => @url.id).destroy!
 	if @url.destroy
-		redirect "/"
+		@saveSuccessful = true
+		@flash = "Delete was successful"
+		erb(:edit)
 	else
 		redirect '/wtf/'
 	end
 end
 
-#post '/find/:searchTerm*?' do
 get '/find/*' do
 	if params[:search_url]
 		@searchTerm = "#{params[:search_url]}".chomp	
@@ -141,10 +143,9 @@ get '/find/*' do
 	end		
 
 	if @urls
-		
 		erb(:all)
 	else
-		redirect "/wtf/"
+		redirect "/"
 	end
 end
 
@@ -208,7 +209,9 @@ end
 
 get '/cats/delete/:id' do
 	@cat = Category.get(params[:id])
+	Categorization.all(:category_id => @cat.id).destroy!
 	if @cat.destroy
+	
 		redirect "/cats/"
 	else
 		redirect '/wtf/'

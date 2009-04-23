@@ -10,7 +10,7 @@
 
 		  <form name="editurlform" action="/update/<%= @url.id %>" method="POST">
 
-		  	<table width="100%">
+		  	<table width="100%" border="0">
 		  		<tr>
 		  			<td align="right">
 		  				Link: 
@@ -41,13 +41,24 @@
 							value="<%= @url.description %>"><br>
 		  			</td>
 		  			<td align="right">
+						<button
+							onclick="if (confirmDelete('<%= @url.url %>') ){window.location.href='/delete/<%= @url.id %>';}"
+							type="button" 
+							class="goDelete" 
+							value="" 
+							title="Delete" 
+						>Delete</button>
+		  			</td>
+	  			</tr>
+	  			<tr>
+		  			<td colspan="3" align="right">
 						<button 
 							class="btn goCancel" 
 							onclick="window.close();"
 						>Close
 						</button> 
 		  			</td>
-	  			</tr>
+				</tr>
 			</table>
 
 			<br/>

@@ -37,7 +37,7 @@ end
 
 get '/' do
 	@urls = Url.all()
-	erb :all
+	erb(:all)
 end
 
 get '/new/' do
@@ -124,14 +124,16 @@ end
 
 get '/delete/:id' do
 	@url = Url.get(params[:id])
+	Categorization.all(:url_id => @url.id).destroy!
 	if @url.destroy
-		redirect "/"
+		@saveSuccessful = true
+		@flash = "Delete was successful"
+		erb(:edit)
 	else
 		redirect '/wtf/'
 	end
 end
 
-#post '/find/:searchTerm*?' do
 get '/find/*' do
 	if params[:search_url]
 		@searchTerm = "#{params[:search_url]}".chomp	
@@ -141,17 +143,16 @@ get '/find/*' do
 	end		
 
 	if @urls
-		
 		erb(:all)
 	else
-		redirect "/wtf/"
+		redirect "/"
 	end
 end
 
 get '/cat/:cat' do
 	redirect "/" if params[:cat].to_s == "*"
 	@urls = Categorization.all(:category_id => params[:cat]).url
-	erb :all
+	erb(:all)
 end
 
 
@@ -161,7 +162,7 @@ end
 
 get '/cats/' do
 	@categories = Category.all()
-	erb :allcats
+	erb(:allcats)
 end
 
 post '/cats/new/' do
@@ -208,7 +209,9 @@ end
 
 get '/cats/delete/:id' do
 	@cat = Category.get(params[:id])
+	Categorization.all(:category_id => @cat.id).destroy!
 	if @cat.destroy
+	
 		redirect "/cats/"
 	else
 		redirect '/wtf/'

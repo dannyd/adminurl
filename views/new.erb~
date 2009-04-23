@@ -27,11 +27,13 @@
 				id="newUrl_description" 
 				value="<%= @newUrl.description %>"
 				size="30"
-			/>
-			<button 
-				onclick="hideDiv('newURLMoreDiv');"
-			><img src="/css/window-close.png">
-			</button>
+			/><a
+				class="btn"
+				href="#" 
+				title="Hide"
+				onclick="hideDiv('newURLMoreDiv');return false;"
+			><img src="/css/window-close.png" >
+			</a>
 		</div>
 	</form>
 </div>

@@ -13,7 +13,7 @@
 							name="search_url"
 							value="<%= @searchTerm %>"
 						/>
-
+						<script language="javascript">document.getElementById('search_url').focus();</script>
 						<button
 							class="goFind" 
 							onclick="window.location.href='/find/'+URLEncode(document.getElementById('search_url').value);"
@@ -72,7 +72,7 @@
 						Categories
 					</th>
 					<th>
-						Edit|Del
+						Edit
 					</th>
 				</tr>
 			</thead>
@@ -93,21 +93,11 @@
 					</div>
 				</td>
 				<td class="urlEditDel">
-					<div  class="buttons">
 						<button
 							onclick="popupBig('/edit/<%= url.id %>');"
 							class="goEdit" 
 							title="Edit" 
 						>&nbsp;</button>
-
-						<button
-							onclick="if (confirmDelete('<%= url.url %>') ){window.location.href='/delete/<%= url.id %>';}"
-							type="button" 
-							class="goDelete" 
-							value="" 
-							title="Delete" 
-						>&nbsp;</button>
-					</div>
 				</td>
 			</tr>
 			<% end %>

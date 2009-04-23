@@ -72,7 +72,7 @@
 						Categories
 					</th>
 					<th>
-						Edit|Del
+						Edit
 					</th>
 				</tr>
 			</thead>
@@ -93,21 +93,11 @@
 					</div>
 				</td>
 				<td class="urlEditDel">
-					<div  class="buttons">
-						<button
-							onclick="popupBig('/edit/<%= url.id %>');"
-							class="goEdit" 
-							title="Edit" 
-						>&nbsp;</button>
-
-						<button
-							onclick="if (confirmDelete('<%= url.url %>') ){window.location.href='/delete/<%= url.id %>';}"
-							type="button" 
-							class="goDelete" 
-							value="" 
-							title="Delete" 
-						>&nbsp;</button>
-					</div>
+					<button
+						onclick="popupBig('/edit/<%= url.id %>');"
+						class="goEdit" 
+						title="Edit" 
+					>&nbsp;</button>
 				</td>
 			</tr>
 			<% end %>
